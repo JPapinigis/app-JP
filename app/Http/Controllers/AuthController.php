@@ -2,27 +2,27 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Conference;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Foundation\Validation\ValidatesRequests;
+
 
 class AuthController extends Controller
 {
-// Show the login form
+    use ValidatesRequests;
+
     public function showLoginForm()
     {
-        return view('login');
+        return view('auth.login');
     }
 
-    // Handle the login form submission
     public function login(Request $request)
     {
         $credentials = $request->only('email', 'password');
-
-        if (Auth::attempt($credentials)) {
-            // Authentication passed...
-            return redirect()->intended('conferences');
+        //dd($credentials);
+        if (Auth::guard('administrators')->attempt(['email' => $request->email, 'password' => $request->password])) {
+            return redirect()->intended('/conferences');
         }
 
         return back()->withErrors([
@@ -30,12 +30,9 @@ class AuthController extends Controller
         ]);
     }
 
-    // Handle the logout request
     public function logout()
     {
         Auth::logout();
-
-        return redirect()->route('conferences');
+        return redirect('/login');
     }
-
 }

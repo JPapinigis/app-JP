@@ -1,30 +1,56 @@
-<!DOCTYPE html>
+@extends('layouts.app')
+@section('nav')
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">My Website</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('conferences.index') }}">Conferences</a>
+            </li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+            @if(Auth::check())
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('logout') }}">Logout</a>
+                </li>
+            @else
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('login') }}">Login</a>
+                </li>
+            @endif
+        </ul>
+    </div>
+</nav>
+@endsection
+@section('content')
+    <div class="container">
+        <h1>Conference List</h1>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Title</th>
+                <th>Organizer</th>
+                <th>Start date</th>
+                <th>End date</th>
+                <th>Description</th>
+            </tr>
+            </thead>
+@endsection
+@section('scripts')
+            <tbody>
+            @foreach($conferences as $conference)
+                <tr>
+                    <td>{{$conference->title}}</td>
+                    <td>{{$conference->organizer}}</td>
+                    <td>{{$conference->start_date}}</td>
+                    <td>{{$conference->end_date}}</td>
+                    <td>{{$conference->description}}</td>
+                    <td><a href="{{ route('conferences.edit', $conference->id) }}" class="btn btn-primary">Edit</a></td>
+                </tr>
+            @endforeach
+                </tbody>
+@endsection
 
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        <title>Laravel</title>
-
-        <link rel="stylesheet" href="{{ mix('css/app.css') }}">
-
-    </head>
-    <body>
-    <table class="table">
-        <thead>
-        <tr>
-            <th>name</th>
-            <th>genre</th>
-            <th>release date</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr class="active">
-            <td>The Shawshank Redemption</td>
-            <td>Crime, Drama</td>
-            <td>14 October 1994</td>
-        </tr>
-        </tbody>
-    </table>
-    <script type="text/javascript" src="{{ mix('js/app.js') }}"></script>
-    </body>
