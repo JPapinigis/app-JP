@@ -22,7 +22,17 @@ class AuthController extends Controller
         $credentials = $request->only('email', 'password');
         //dd($credentials);
         if (Auth::guard('administrators')->attempt(['email' => $request->email, 'password' => $request->password])) {
-            return redirect()->intended('/conferences');
+            session(['login' => true]);
+            if (session()->has('login')) {
+                // Session is started
+                return redirect()->intended('/conferences');
+            } else {
+                // Session is not started
+                return back()->withErrors([
+                    'email' => 'Session not started.',
+                ]);
+
+            }
         }
 
         return back()->withErrors([
@@ -33,6 +43,7 @@ class AuthController extends Controller
     public function logout()
     {
         Auth::logout();
-        return redirect('/login');
+        session(['login' => false]);
+        return redirect('/conferences');
     }
 }

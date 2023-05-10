@@ -25,19 +25,19 @@ class ConferencesController extends Controller
             'title' => 'required|max:255',
             'organizer' => 'required|max:255',
             'start_date' => 'date',
-            'end_date' => 'date|after:start_date',
+            'end_date' => 'date|after_or_equal:start_date',
             'description' => 'nullable|max:255',
         ]);
 
-        $conference = new Conference();
-        $conference->title = $validatedData['title'];
-        $conference->organizer = $validatedData['organizer'];
-        $conference->start_date = $validatedData['start_date'];
-        $conference->end_date = $validatedData['end_date'];
-        $conference->description = $validatedData['description'];
-        $conference->save();
+            $conference = new Conference();
+            $conference->title = $validatedData['title'];
+            $conference->organizer = $validatedData['organizer'];
+            $conference->start_date = $validatedData['start_date'];
+            $conference->end_date = $validatedData['end_date'];
+            $conference->description = $validatedData['description'];
+            $conference->save();
 
-        return redirect()->route('index')->with('success', 'Conference created successfully.');
+            return redirect()->route('conferences.index')->with('success', 'Conference created successfully.');
     }
     public function show($id)
     {
@@ -62,7 +62,7 @@ class ConferencesController extends Controller
             'title' => 'required|max:255',
             'organizer' => 'required|max:255',
             'start_date' => 'date',
-            'end_date' => 'date|after:start_date',
+            'end_date' => 'date|after_or_equal:start_date',
             'description' => 'nullable|max:255',
         ]);
 
@@ -75,7 +75,7 @@ class ConferencesController extends Controller
         $conference->description = $validatedData['description'];
         $conference->save();
 
-        return redirect()->route('show', ['id' => $id])->with('success', 'Conference updated successfully.');
+        return redirect()->route('conferences.index', ['id' => $id])->with('success', 'Conference updated successfully.');
     }
 
     // Delete method to handle the deletion of a conference
@@ -84,7 +84,7 @@ class ConferencesController extends Controller
         $conference = Conference::findOrFail($id);
         $conference->delete();
 
-        return redirect()->route('index')->with('success', 'Conference deleted successfully.');
+        return redirect()->route('conferences.index')->with('success', 'Conference deleted successfully.');
     }
 
 }

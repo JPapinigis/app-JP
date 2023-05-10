@@ -15,7 +15,12 @@
 
 @yield('content')
 
-@yield('scripts')
+
+
+
+
+
+
 
 
 

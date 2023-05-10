@@ -12,9 +12,12 @@
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">
-                @if(Auth::check())
+                @if(session('login'))
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('logout') }}">Logout</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('conferences.create') }}">Create</a>
                     </li>
                 @else
                     <li class="nav-item">
@@ -38,9 +41,9 @@
                 <th>Description</th>
             </tr>
             </thead>
-            @endsection
-            @section('scripts')
-                <tbody>
+
+            <tbody>
+
                 @foreach($conferences as $conference)
                     <tr>
                         <td>{{$conference->title}}</td>
@@ -48,9 +51,25 @@
                         <td>{{$conference->start_date}}</td>
                         <td>{{$conference->end_date}}</td>
                         <td>{{$conference->description}}</td>
+                        @if(session('login'))
                         <td><a href="{{ route('conferences.edit', $conference->id) }}" class="btn btn-primary">Edit</a></td>
+                        <td><form action="{{ route('conferences.destroy', $conference->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this conference?')">
+                            @csrf
+                            @method ('DELETE')
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                        </td>
+                        @endif
                     </tr>
+
                 @endforeach
-                </tbody>
+
+            </tbody>
+        </table>
+    </div>
 @endsection
+
+
+
+
 
