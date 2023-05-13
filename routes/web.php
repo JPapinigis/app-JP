@@ -29,6 +29,7 @@ Route::middleware('web')->group(function () {
     Route::get('/conferences', [ConferencesController::class, 'index'])->name('conferences.index');
     Route::get('/conferences/create', [ConferencesController::class, 'create'])->name('conferences.create');
     Route::get('/conferences/{id}/edit', [ConferencesController::class, 'edit'])->name('conferences.edit');
+    Route::get('/conferences/{id}/delete', [ConferencesController::class, 'delete'])->name('conferences.delete');
     Route::post('/conferences', [ConferencesController::class, 'store'])->name('conferences.store');
     Route::put('/conferences/{id}', [ConferencesController::class, 'update'])->name('conferences.update');
     Route::delete('/conferences/{id}', [ConferencesController::class, 'destroy'])->name('conferences.destroy');

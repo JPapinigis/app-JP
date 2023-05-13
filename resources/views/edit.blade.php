@@ -18,6 +18,8 @@
                 <input type="text" name="organizer" id="organizer" value="{{ $conference->organizer }}" class="form-control">
             </div>
 
+
+
             <div class="form-group">
                 <label for="start_date">Start date</label>
                 <input type="date" name="start_date" id="start_date" value="{{ $conference->start_date }}" class="form-control">
@@ -31,7 +33,7 @@
 
             <div class="form-group">
                 <label for="description">Description</label>
-                <textarea name="description" id="description"  class="form-control">{{ $conference->description }}</textarea>
+                <textarea name="description" id="description" value="{{ $conference->description }}" class="form-control"></textarea>
             </div>
 
             <br>
