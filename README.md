@@ -17,13 +17,11 @@ Instructions to deploy web conference tool:
 	localhost/conferences
 	localhost:8000/conferences
 	127.0.0.1:8000/conferences
-<<<<<<< HEAD
 
 7. log in to administrate web conferences with
 
 	email adress: admin@admin.com
 	password: admin123
-=======
 	
 7. log in to administrate web conferences with
 
