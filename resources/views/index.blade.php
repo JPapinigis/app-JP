@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('nav')
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light mb-3">
         <a class="navbar-brand" href="#">My Website</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -16,9 +16,6 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('logout') }}">Logout</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('conferences.create') }}">Create</a>
-                    </li>
                 @else
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('login') }}">Login</a>
@@ -30,7 +27,10 @@
 @endsection
 @section('content')
     <div class="container">
-        <h1>Conference List</h1>
+        <h1 class="mb-3">Conference List</h1>
+        @if(session('login'))
+            <button class="btn btn-primary mb-3" onclick='location.href="{{ route('conferences.create') }}"'>Create</button>
+        @endif
         <table class="table table-striped">
             <thead>
             <tr>
@@ -66,6 +66,7 @@
 
             </tbody>
         </table>
+
     </div>
 @endsection
 
